@@ -2,31 +2,28 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
-class AuthServiceProvider extends ServiceProvider
+class PassportServiceProvider extends ServiceProvider
 {
     /**
-     * The model to policy mappings for the application.
+     * Register services.
      *
-     * @var array<class-string, class-string>
+     * @return void
      */
-    protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-    ];
+    public function register()
+    {
+        //
+    }
 
     /**
-     * Register any authentication / authorization services.
+     * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-        $this->registerPolicies();
-
- // Use environment variables for Passport keys
         $privateKey = env('PASSPORT_PRIVATE_KEY');
         $publicKey = env('PASSPORT_PUBLIC_KEY');
 
@@ -39,8 +36,5 @@ class AuthServiceProvider extends ServiceProvider
         } else {
             throw new \Exception('Passport keys are not set in the environment variables');
         }
-
-        Passport::tokensExpireIn(now()->addDays(15));
-        Passport::refreshTokensExpireIn(now()->addDays(30));
-        Passport::personalAccessTokensExpireIn(now()->addMonths(6));    }
+    }
 }
