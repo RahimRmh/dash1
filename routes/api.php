@@ -34,5 +34,8 @@ Route::get('test-db', function () {
     }
 });
 
+Route::get('/student', [App\Http\Controllers\StudentController::class, 'index']);
+Route::post('/student', [App\Http\Controllers\StudentController::class, 'store']);
+
 
 
